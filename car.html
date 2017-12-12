@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="background" width="800" height="374" style="border:solid; position: absolute; z-index:0">
+</canvas>
+<canvas id="myCanvas" width="800" height="374" style="border:solid; position:absolute; z-index:1">
+</canvas>
+<script type="text/javascript">
+    var backCanvas = document.getElementById("background");
+    var backContext = backCanvas.getContext("2d");
+    backContext.lineWidth = 2;
+    backContext.fillStyle = "gray";
+    backContext.fillRect(0, 260, 800, 114);
+    backContext.fillStyle = "yellow";
+    backContext.fillRect(20, 260, 90, 10);
+    backContext.fillRect(220, 260, 90, 10);
+    backContext.fillRect(420, 260, 90, 10);
+    backContext.fillRect(620, 260, 90, 10);
+
+    var canvas = document.getElementById("myCanvas");
+    var context = canvas.getContext("2d");
+    var image = new Image();
+    image.src = "http://211.66.128.178/picSrc/第十一章/车轮70_71.png";
+    image.onload = function () {
+        var frm = 0, dis = 0;
+        var x = 0, y = 200;
+        setInterval(function () {
+            context.clearRect(0, 0, 800, 374);
+            context.save();
+            context.translate(x, y);
+            context.lineWidth = 2;
+            context.fillStyle = "black";
+            context.fillRect(-30, -90, 230, 125);
+            context.fillStyle = "blue";
+            context.fillRect(-10, -70, 100, 40);
+            context.fillRect(120, -70, 60, 40);
+            context.drawImage(image, 0, frm * 71, 70, 71, 0, 0, 70, 71);
+            context.drawImage(image, 0, frm * 71, 70, 71, 100, 0, 70, 71);
+            context.restore();
+            x += 2;
+            if (x >= 800) {
+                x = 0;
+            }
+            dis++;
+            if (dis >= 20) {
+                dis = 0;
+                frm++;
+                if (frm >= 3) frm = 0;
+            }
+        }, 1000 / 60);
+    };
+
+
+</script>
+</body>
+</html>
